@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            position: relative;
+            width: 660px;
+            height: 375px;
+            margin: 0 auto;
+            top: 10px;
+        }
+
+        .container ul {
+            list-style: none;
+        }
+
+        .container img:hover {
+            cursor: pointer;
+        }
+
+        .text {
+            position: absolute;
+            right: 13%;
+            bottom: 10px;
+        }
+
+        .text span {
+            border: 1px solid #606060;
+            display: inline-block;
+            height: 18px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .text span:hover {
+            border: 1px solid #fff;
+            background: #C1C1C1;
+        }
+
+    </style>
+    <script type="text/javascript">
+
+
+        window.onload = function () {
+            var imgs = document.getElementById('img');
+            var num = 0;
+            var lists = document.getElementsByTagName('span');
+            var imgSite = new Array();
+            imgSite[0] = "1.jpg";
+            imgSite[1] = "2.jpg";
+            imgSite[2] = "3.jpg";
+            imgSite[3] = "4.jpg";
+            imgSite[4] = "5.jpg";
+            //自动切换
+            var timer = setInterval(change, 2000);
+            imgs.onmouseover = function () {
+                clearInterval(timer);
+            }
+            imgs.onmouseout = function () {
+                timer = setInterval(change, 2000);
+            }
+            function change() {
+                if (num > imgSite.length - 2) {
+                    num = 0;
+                } else {
+                    num = num + 1;
+                }
+                imgs.src = imgSite[num];
+            };
+            //数字切换
+            for (i = 0; i
+            < lists.length
+                    ; i++) {
+                choose(i);
+            }
+            function choose(i) {
+                lists[i].onmouseover = function () {
+                    imgs.src = imgSite[i];
+                }
+            }
+        }
+    </script>
+
+</head>
+<body>
+<div class="container">
+    <ul>
+        <li><img src="1.jpg" id="img"></li>
+    </ul>
+    <div class="text">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+    </div>
+</div>
+
+</body>
+</html>

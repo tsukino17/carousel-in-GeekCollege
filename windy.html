@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>简单粗暴,毫无bug的轮播图</title>
+</head>
+<style type="text/css">
+    /*一般来讲,页面的文件顺序是CSS,HTML,JS,从上到下执行*/
+    /*然后先把一些默认的样式清除掉,然后再由大到小地写样式*/
+    /*有的娃至今为止还是弄不清position:relative和absolute的区别:
+    relative是相对于自己本身原来的位置,absolute是相对于离自己最近的那个元素的位置(并不一定是父级);
+    我们要先设置position:relative才可以让ul根据它原来的位置做移动*/
+
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        text-decoration: none;
+    }
+
+    .container {
+        width: 500px;
+        height: 400px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -250px;
+        margin-top: -200px;
+        border: 2px solid lightskyblue;
+        overflow: hidden;
+    }
+
+    .container ul li {
+        float: left;
+    }
+
+    .imgList {
+        width: 2500px;
+        position: relative;
+    }
+
+    .imgList li {
+        width: 500px;
+        height: 400px;
+    }
+
+    .imgList li img {
+        width: 500px;
+        height: 400px;
+    }
+
+    .dotList {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        margin-left: -60px;
+    }
+
+    .dotList li {
+        height: 10px;
+        width: 10px;
+        border: 2px solid lightskyblue;
+        margin-right: 10px;
+        border-radius: 50%;
+        background-color: #ffffff;
+    }
+
+    .dotList li.on {
+        background-color: lightskyblue;
+    }
+
+    .btn {
+        position: relative;
+        top: -250px;
+        width: 500px;
+    }
+
+    .prev, .next {
+        height: 100px;
+        width: 100px;
+        display: inline-block;
+        background-size: 100px 100px;
+        border: 1px solid #cccccc;
+    }
+
+    .prev {
+        background-image: url("images/prev.png");
+    }
+
+    .next {
+        background-image: url("images/next.png");
+        float: right;
+    }
+</style>
+<body>
+    <!--容器-->
+    <div class="container">
+    <!-- 图片列表-->
+    <ul class="imgList" style="left: 0"><!--这个地方需要预先把style:left写上去,写CSS里获取不到-->
+        <li><img src="images/01.jpg" alt=""></li>
+        <li><img src="images/02.jpg" alt=""></li>
+        <li><img src="images/03.jpg" alt=""></li>
+        <li><img src="images/04.jpg" alt=""></li>
+        <li><img src="images/05.jpg" alt=""></li>
+    </ul>
+    <!--圆点列表-->
+    <ul class="dotList">
+        <li class="on"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <!--控制左右-->
+    <div class="btn">
+        <a href="#" class="prev"></a>
+        <a href="#" class="next"></a>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+
+    //记得写script脚本类型声明以及windy.onload哈哈
+
+    window.onload = function () {
+
+        //获取一堆元素
+        var container = document.getElementsByClassName('container')[0];
+        var imgList = document.getElementsByClassName('imgList')[0];
+        var images = imgList.children;
+        var dotList = document.getElementsByClassName('dotList')[0];
+        var dots = dotList.children;
+        var prev = document.getElementsByClassName('prev')[0];
+        var next = document.getElementsByClassName('next')[0];
+        var timer;//这是一个定时器
+
+        //点击事件在这里
+        prev.onclick = function () {
+            leftMove();
+            tab();
+        };
+        next.onclick = function () {
+            rightMove();
+            tab();
+        };
+        //向左点击移动
+        function leftMove() {
+            imgList.style.left = parseInt(imgList.style.left) + 500 + 'px';
+            //判断一下点击到头的情况
+            if (parseInt(imgList.style.left) > 0) {
+                imgList.style.left = -2000 + 'px';
+            }
+        }
+
+        //向右点击移动
+        function rightMove() {
+            imgList.style.left = parseInt(imgList.style.left) - 500 + 'px';
+            //判断一下点击到头的情况
+            if (parseInt(imgList.style.left) < -2000) {
+                imgList.style.left = 0 + 'px';
+            }
+        }
+
+        //小圆点hover上去时候图片相对应
+        for (var i = 0; i < dots.length; i++) {
+            //让所有圆点都是未点击状态
+            dots[i].onmouseover = function () {
+                for (var i = 0; i < dots.length; i++) {
+                    if (dots[i].className == 'on') {
+                        dots[i].className = '';
+                    }
+                }
+                this.className = 'on';
+
+                //让点的index对应图片的index
+                for (var i = 0; i < dots.length; i++) {
+                    if (dots[i].className == 'on') {
+                        imgList.style.left = -500 * i + 'px';
+                    }
+                }
+
+            }
+        }
+
+        //点击时候正好对应这个点
+        function tab() {
+            var index = Math.abs(parseInt(imgList.style.left) / 500);
+            for (var i = 0; i < dots.length; i++) {
+                if (i !== index) {
+                    if (dots[i].className == 'on') {
+                        dots[i].className = '';
+                    } else {
+                        dots[index].className = 'on';
+                    }
+                }
+            }
+        }
+
+        //设置个定时器自动轮播,实际上就是触发点击事件
+        function go() {
+            timer = setInterval(function () {
+                next.onclick();
+            }, 3000)
+        }
+
+        go();
+
+        //鼠标放上去清除定时器,鼠标移开再重新开始
+        container.onmouseover = function () {
+            clearTimeout(timer);
+        };
+        container.onmouseout = function () {
+            go();
+        };
+
+        //以上就是简单粗暴版的轮播图,大家可以根据自己的喜好优化以及添加特效,祝开心:)
+        //PS:觉得自己做了一个特别酷炫的效果或者优化的特别优雅的话可以发到群里镇住大家哦~
+
+    }
+
+
+</script>

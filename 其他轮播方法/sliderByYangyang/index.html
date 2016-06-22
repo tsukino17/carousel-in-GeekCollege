@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Slider</title>
+    <link rel="stylesheet" href="css/lazySlider-default.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/monokai_sublime.min.css">
+</head>
+<body>
+<div class="container">
+    <!--slider容器-->
+    <h1>lazySlider - Simple Demo By Rieon</h1>
+    <div id="slider">
+        <h1 style="text-align: center;">Oops! There is a
+            fatal error!
+            <br>
+            Slider was gone....
+        </h1>
+    </div>
+    <div class="footer">
+        <h2>lazySlider brief introduction</h2>
+        <h3>lazySlider 是一个简单的小插件（我想把它做成一个插件，哈哈哈）</h3>
+        <h3>初学JavaScript，略懂皮毛，代码也写的很原始，欢迎来喷我哈哈哈~~</h3>
+        <h3>这个页面标题都用了英文是因为这个英文字体很好看~~</h3>
+        <h2>lazySlider How-to</h2>
+        <h3>首先引入lazySlider的样式表</h3>
+        <pre>
+            <code>
+                &lt;link rel="stylesheet" href="css/lazySlider-default.css"&gt;
+            </code>
+        </pre>
+        <h3>然后在html中放置一个要装slider的容器比如#slider</h3>
+        <pre>
+            <code>
+                &lt;div id="slider"&gt;&lt;/div&gt;
+            </code>
+        </pre>
+        <h3>引入lazySlider.js 然后参照如下配置对lazySlider进行初始化</h3>
+        <pre>
+            <code>
+                &lt;script src="js/lazySlider.js"&gt;&lt;/script&gt;
+                &lt;script&gt;
+                    //初始化lazySlider
+                    lazySlider('#slider', //承载容器
+                            {
+                                config: {width: 900, height: 300, autoplay: true,delay:3000},//配置
+                                data: [
+                                    {img: '1.jpg', alt: 'words', h1: 'Super Lazy', h2: 'Slider'},//数据
+                                    {img: '2.jpg', alt: 'words', h1: 'Friendly', h2: 'DEVIL'},
+                                    {img: '3.jpg', alt: 'words', h1: 'Creative', h2: 'JIKE'},
+                                    {img: '4.jpg', alt: 'words', h1: 'Super Lazy', h2: 'Slider'},
+                                    {img: '5.jpg', alt: 'words', h1: 'Creative', h2: 'DUET'},
+                                    {img: '6.jpg', alt: 'words', h1: 'Creative', h2: 'JIKE'}
+                                ]
+                            }
+                    );
+                &lt;/script&gt;
+            </code>
+        </pre>
+        <h3>目前可用配置项:</h3>
+        <pre>
+            <code>
+                参数:
+                    width  //宽度 不加px
+                    height //高度 不加px
+                    autoplay // true为开启自动播放 false关闭 默认关闭
+                    delay //自动播放延时 单位毫秒 默认2000
+                数据:
+                    img  //图片地址
+                    alt  //图片的alt
+                    h1   //caption部分的文字
+                    h2   //caption部分的文字
+            </code>
+        </pre>
+    </div>
+</div>
+<script src="js/lazySlider.js"></script>
+<script src="js/highlight.min.js"></script>
+<script>
+    //初始化lazySlider
+    lazySlider('#slider',
+            {
+                config: {width: 900, height: 300, autoplay: true,delay:3000},
+                data: [
+                    {img: '1.jpg', alt: 'words', h1: 'Super Lazy', h2: 'Slider'},
+                    {img: '2.jpg', alt: 'words', h1: 'Friendly', h2: 'DEVIL'},
+                    {img: '3.jpg', alt: 'words', h1: 'Creative', h2: 'JIKE'},
+                    {img: '4.jpg', alt: 'words', h1: 'Super Lazy', h2: 'Slider'},
+                    {img: '5.jpg', alt: 'words', h1: 'Creative', h2: 'DUET'},
+                    {img: '6.jpg', alt: 'words', h1: 'Friendly', h2: 'JIKE'}
+                ]
+            }
+    );
+    hljs.initHighlightingOnLoad();
+</script>
+</body>
+</html>

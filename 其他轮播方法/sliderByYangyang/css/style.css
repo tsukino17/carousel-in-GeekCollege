@@ -1,0 +1,34 @@
+.container {
+    height: auto;
+    width: 900px;
+    margin: 0 auto;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+}
+*{
+    font-family: 'Open Sans Condensed','HanHei SC','Microsoft Yahei', sans-serif;
+
+}
+.container h1 {
+    font-size: 3rem;
+}
+.container h1,.container h2 {
+    font-family: 'Open Sans Condensed', sans-serif;
+    text-align: left;
+    font-weight:normal;
+}
+.container h2{
+    font-size:2rem;
+}
+.container pre code,
+.container pre code *{
+    font-family: 'Lato','HanHei SC', sans-serif !important;
+}
+
+@font-face {
+    font-family:'HanHei SC';
+    font-style:normal;
+    font-weight:400;
+    src:url("../fonts/HanHei-SC-text.woff") format("woff");
+}
